@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Invoice;
 use Illuminate\Http\Request;
+use App\Mail\InvoiceCreated;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceController extends Controller
 {
@@ -90,8 +92,9 @@ class InvoiceController extends Controller
             $validatedData['file_path'] = $request->file('file')->store('invoices');
             }
 
-        Invoice::create($validatedData);
-      
+       $invoice=  Invoice::create($validatedData);
+      // Envoi de l'email
+Mail::to('elmahdanisouhail@gmail.com')->send(new InvoiceCreated($invoice));
        
 
         return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');

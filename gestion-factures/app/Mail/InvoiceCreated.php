@@ -8,10 +8,29 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-
+use App\Models\Invoice;
 class InvoiceCreated extends Mailable
 {
     use Queueable, SerializesModels;
+
+    
+public $invoice;
+public function __construct(Invoice $invoice)
+{
+$this->invoice = $invoice;
+}
+public function build()
+{ 
+    $filePath = storage_path('app/private/invoices/ex2.pdf');
+return $this->view('emails.invoice_created')
+->subject('Nouvelle facture créée par Nisrine')
+->attach($filePath, [
+    'as' => 'facture.pdf',  // Nom du fichier attaché
+    'mime' => 'application/pdf',  // Type MIME du fichier
+])
+->with(['invoice' => $this->invoice]);
+
+}
 
     /**
      * Create a new message instance.
@@ -31,12 +50,7 @@ class InvoiceCreated extends Mailable
     /**
      * Get the message content definition.
      */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
+ 
 
     /**
      * Get the attachments for the message.
@@ -47,16 +61,5 @@ class InvoiceCreated extends Mailable
     {
         return [];
     }
-    use Queueable, SerializesModels;
-public $invoice;
-public function __construct(Invoice $invoice)
-{
-$this->invoice = $invoice;
-}
-public function build()
-{
-return $this->view('emails.invoice_created')
-->subject('Nouvelle facture créée')
-->with(['invoice' => $this->invoice]);
-}
+ 
 }
