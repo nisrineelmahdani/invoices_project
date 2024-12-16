@@ -131,9 +131,12 @@
                     <td>{{ $invoice->invoice_date }}</td>
                     <td>{{ $invoice->amount }}</td>
                     <td>{{ $invoice->status }}</td>
-                    <td>  <a href="{{ asset('storage/app/private/invoices/ex2') }}" target="_blank" class="btn btn-sm btn-info">
-            View Document
+                    <td>
+  <a href="{{ route('invoices.view', $invoice->id) }}" target="_blank" class="btn btn-sm btn-info">
+    View Document
+  </a>
 </td>
+
 
 
                     

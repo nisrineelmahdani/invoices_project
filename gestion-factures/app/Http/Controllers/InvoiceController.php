@@ -70,7 +70,7 @@ class InvoiceController extends Controller
         return view('invoices.index', compact('invoices'));
     }
  
-
+/*
 public function download($id)
 {
    
@@ -86,7 +86,24 @@ public function download($id)
 
   
     abort(404, 'File not found.');
+}*/
+
+
+public function view($id)
+{
+    $invoice = Invoice::findOrFail($id);
+
+    $filePath = 'private/' . $invoice->file_path;
+
+
+    if (Storage::exists($filePath)) {
+      
+        return response()->file(storage_path('app/' . $filePath));
+    }
+
+    abort(404, 'File not found.');
 }
+
 
 
     /**
