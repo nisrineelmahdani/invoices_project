@@ -131,9 +131,13 @@
                     <td>{{ $invoice->invoice_date }}</td>
                     <td>{{ $invoice->amount }}</td>
                     <td>{{ $invoice->status }}</td>
-                    <td>{{ $invoice->file_path }}</td>
-                    <td>
-                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Modifier</a>
+                    <td>  <a href="{{ asset('storage/app/private/invoices/ex2') }}" target="_blank" class="btn btn-sm btn-info">
+            View Document
+</td>
+
+
+                    
+                        <td> <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Modifier</a>
                         <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline-block;">
                             @csrf
                             @method('DELETE')

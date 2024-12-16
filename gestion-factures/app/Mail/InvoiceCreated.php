@@ -25,8 +25,8 @@ public function build()
 return $this->view('emails.invoice_created')
 ->subject('Nouvelle facture créée par Nisrine')
 ->attach($filePath, [
-    'as' => 'facture.pdf',  // Nom du fichier attaché
-    'mime' => 'application/pdf',  // Type MIME du fichier
+    'as' => 'facture.pdf',  
+    'mime' => 'application/pdf',  
 ])
 ->with(['invoice' => $this->invoice]);
 

@@ -12,4 +12,5 @@ Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.st
 Route::get('/invoices/{invoice}/edit', [InvoiceController::class, 'edit'])->name('invoices.edit');
 Route::put('/invoices/{invoice}', [InvoiceController::class, 'update'])->name('invoices.update');
 Route::delete('/invoices/{invoice}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
+Route::get('/download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
 

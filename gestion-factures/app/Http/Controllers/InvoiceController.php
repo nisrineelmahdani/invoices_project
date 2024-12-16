@@ -6,6 +6,7 @@ use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Mail\InvoiceCreated;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class InvoiceController extends Controller
 {
@@ -65,8 +66,28 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoices = Invoice::all();
+     
         return view('invoices.index', compact('invoices'));
     }
+ 
+
+public function download($id)
+{
+   
+    $invoice = Invoice::findOrFail($id);
+
+    
+    $filePath = "private/invoices" . $invoice->file_path;
+
+    
+    if (Storage::exists($filePath)) {
+        return Storage::download($filePath, $invoice->file_path);
+    }
+
+  
+    abort(404, 'File not found.');
+}
+
 
     /**
      * Show the form for creating a new resource.
