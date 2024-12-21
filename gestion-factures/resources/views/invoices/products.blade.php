@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoices</title>
+    <title>Clients</title>
     <link rel="stylesheet" href="{{ asset('resources/css/main.css') }}">
 
     <!-- Bootstrap CSS -->
@@ -148,58 +148,38 @@
 </head>
 <body>
 
-    <h1>Liste Des Factures:</h1>
+    <h1>Liste Des Produits:</h1>
 
-    <div class="container text-center">
-        <a href="{{ route('invoices.create') }}" class="btn btn-primary mb-3">Créer une nouvelle facture</a>
-    </div>
+  
 
     <div class="container">
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Client</th>
-                    <th>Date</th>
-                    <th>Montant</th>
-                    <th>Status</th>
-                    <th>invoice_number</th>
-                    <th>file_path</th>
-                    <th>Actions</th>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>fournisseur</th>
+                    
+                    
                 </tr>
             </thead>
             <tbody>
-                @foreach($invoices as $invoice)
+                @foreach($produits as $produit)
                 <tr>
-                    <td>{{ $invoice->id }}</td>
-                    <td>{{ $invoice->client_name }}</td>
-                    <td>{{ $invoice->invoice_date }}</td>
-                    <td>{{ $invoice->amount }}</td>
-                    <td>{{ $invoice->status }}</td>
-                    <td>{{ $invoice->invoice_number }}</td>
-                    <td>
-  <a href="{{ route('invoices.view', $invoice->id) }}" target="_blank" class="btn btn-sm btn-info">
-    View Document
-  </a>
-</td>
+                    <td>{{ $produit->id }}</td>
+                    <td>{{ $produit->name }}</td>
+                    <td>{{ $produit->price }}</td>
+                    <td>{{ $produit->supplier->name ??'N/A' }} </td>
+                
 
-
-
-                    
-                        <td> <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Modifier</a>
-                        <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
     <div class="pagination">
-        {{ $invoices->links() }}
+        {{ $produits->links() }}
     </div>
     
 </body>

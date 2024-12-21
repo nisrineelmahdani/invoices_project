@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoices</title>
+    <title>Clients</title>
     <link rel="stylesheet" href="{{ asset('resources/css/main.css') }}">
 
     <!-- Bootstrap CSS -->
@@ -148,11 +148,9 @@
 </head>
 <body>
 
-    <h1>Liste Des Factures:</h1>
+    <h1>Liste Des Clients:</h1>
 
-    <div class="container text-center">
-        <a href="{{ route('invoices.create') }}" class="btn btn-primary mb-3">Créer une nouvelle facture</a>
-    </div>
+  
 
     <div class="container">
         <table class="table table-bordered">
@@ -160,46 +158,33 @@
                 <tr>
                     <th>#</th>
                     <th>Client</th>
-                    <th>Date</th>
-                    <th>Montant</th>
-                    <th>Status</th>
-                    <th>invoice_number</th>
-                    <th>file_path</th>
-                    <th>Actions</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Adress Street</th>
+                    <th>Adress State</th>
+                    <th>Adress City</th>
+                    <th>Adress Zip</th>
+                    
                 </tr>
             </thead>
             <tbody>
-                @foreach($invoices as $invoice)
+                @foreach($clients as $client)
                 <tr>
-                    <td>{{ $invoice->id }}</td>
-                    <td>{{ $invoice->client_name }}</td>
-                    <td>{{ $invoice->invoice_date }}</td>
-                    <td>{{ $invoice->amount }}</td>
-                    <td>{{ $invoice->status }}</td>
-                    <td>{{ $invoice->invoice_number }}</td>
-                    <td>
-  <a href="{{ route('invoices.view', $invoice->id) }}" target="_blank" class="btn btn-sm btn-info">
-    View Document
-  </a>
-</td>
-
-
-
-                    
-                        <td> <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning">Modifier</a>
-                        <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
+                    <td>{{ $client->id }}</td>
+                    <td>{{ $client->name }}</td>
+                    <td>{{ $client->email }}</td>
+                    <td>{{ $client->phone }}</td>
+                    <td>{{ $client->address->street }}</td>
+                    <td>{{ $client->address->city }}</td>
+                    <td>{{ $client->address->state }}</td>
+                    <td>{{ $client->address->zip }}</td>
                 </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
     <div class="pagination">
-        {{ $invoices->links() }}
+        {{ $clients->links() }}
     </div>
     
 </body>

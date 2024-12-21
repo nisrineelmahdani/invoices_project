@@ -1,0 +1,27 @@
+/* Add to your app.css file */
+.pagination a, .pagination span {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination .disabled {
+    color: #ccc;
+}
+
+.pagination .active {
+    font-weight: bold;
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .page-link {
+    font-size: 14px;
+    padding: 5px 10px;
+}

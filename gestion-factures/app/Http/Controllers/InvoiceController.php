@@ -65,7 +65,7 @@ class InvoiceController extends Controller
     }
     public function index()
     {
-        $invoices = Invoice::all();
+        $invoices = Invoice::orderBy('amount', 'desc')->paginate(10);
      
         return view('invoices.index', compact('invoices'));
     }
@@ -121,6 +121,8 @@ public function view($id)
     {
         $validatedData = $request->validate([
             'client_name' => 'required|max:255',
+            'client_id'=> 'nullable',
+            'invoice_number' => 'nullable',
             'invoice_date' => 'required|date',
             'amount' => 'required|numeric|min:0',
             'status' => 'required|in:unpaid,paid,canceled',
@@ -129,7 +131,8 @@ public function view($id)
         if ($request->hasFile('file')) {
             $validatedData['file_path'] = $request->file('file')->store('invoices');
             }
-
+            $validatedData['client_id'] = $validatedData['client_id'] ?? null;
+            $validatedData['invoice_number'] = $validatedData['invoice_number'] ?? "0";
        $invoice=  Invoice::create($validatedData);
       // Envoi de l'email
 Mail::to('elmahdanisouhail@gmail.com')->send(new InvoiceCreated($invoice));

@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('client_name');
-            $table->date('invoice_date');
-            $table->decimal('amount',10,2);
-            $table->string('status')->default('unpaid');
-            $table->string('file_path')->nullable();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->string('street');
+            $table->string('city');
+            $table->string('state');
+            $table->string('zip');
             $table->timestamps();
         });
+        
     }
 
     /**
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('addresses');
     }
 };
